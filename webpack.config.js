@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const modeConfig = env => require(`./build-utils/webpack.${env.mode}.js`)(env);
 const loadPresets = require('./build-utils/loadPresets');
+
 var path = require('path');
 var SRC_DIR = path.resolve(__dirname,'src');
 
@@ -21,9 +22,12 @@ module.exports = ({ mode, presets }) => {
         filename: 'index.html',
         template: './src/index.html'
       }),
-      new CopyWebpackPlugin(
-        [{ from: 'src/img', to: 'img/' }],
-        { ignore: ['.DS_Store'] })
+      new CopyWebpackPlugin([{
+        from: 'src/img/icons', to: 'img/icons'
+      }],
+      {
+        ignore: ['.DS_Store']
+      })
     ]
   },
   modeConfig({ mode, presets }),
